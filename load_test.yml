@@ -1,0 +1,16 @@
+config:
+  target: 'http://localhost:8080'  # Адрес вашего сервера
+  phases:
+    - duration: 60  # Тестируем в течение 60 секунд
+      arrivalRate: 1000  # 1000 запросов в секунду
+
+scenarios:
+  - flow:
+      - post:
+          url: "/api/v1/wallet"
+          json:
+            walletId: "{{ wallet_id }}"
+            operationType: "DEPOSIT"
+            amount: 1000
+      - get:
+          url: "/api/v1/wallets/{{ wallet_id }}"
